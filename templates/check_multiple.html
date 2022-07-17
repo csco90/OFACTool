@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1> Check Multiple Names </h1>
+
+
+    <p class="alert alert-info">
+        You can download the template file <a href="/static/content/InputTemplate.xlsx" download>here</a>
+    </p>
+
+    <p class="alert alert-warning">
+        Please upload an Excel file containing all names you would like to cross-check on the OFAC list
+    </p>
+
+
+
+    <form action="/check/multiple" method="POST" enctype="multipart/form-data">
+        <div class="mb-3 d-flex">
+
+            <div class="flex-fill">
+                <input class="form-control" type="file" id="formFile" name="excelfile">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary flex-fill">Upload</button>
+            </div>
+        </div>
+    </form>
+
+    {% if fileuploaded == True %}
+     <div class="modal fade show d-block modal-dialog-centered" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Download Results</h5>
+                <a href="{{ url_for("check_multiple") }}" type="button" style="text-decoration: none;" class="close" >
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <p>Get the results here <a href="/static/OUTPUT/checked_{{filename}}" download>Download</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+    {% endif %}
+
+{% endblock %}
